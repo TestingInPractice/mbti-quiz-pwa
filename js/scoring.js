@@ -1,14 +1,11 @@
 /**
- * MBTI Scoring Logic
+ * MBTI Scoring Logic + Descriptions
  * Портировано из Django quiz/views.py
  */
 
 const Scoring = {
   /**
    * Рассчитать баллы по 8 измерениям MBTI
-   * @param {Object} answers - {questionId: answerValue}
-   * @param {Array} questions - массив вопросов
-   * @returns {Object} scores {E, I, S, N, T, F, J, P}
    */
   calculateScores(answers, questions) {
     const scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
@@ -21,15 +18,12 @@ const Scoring = {
       const answerVal = parseInt(ansStr);
       if (isNaN(answerVal)) continue;
       
-      // Вес ответа: (answer - 3) * weight_question
       let weight = (answerVal - 3) * question.weight;
       
-      // Если вопрос инвертирован - инвертируем вес
       if (question.is_negated) {
         weight = -weight;
       }
       
-      // Распределяем по паре дихотомии
       const [first, second] = question.category.split('');
       
       if (weight > 0) {
@@ -44,33 +38,82 @@ const Scoring = {
   
   /**
    * Определить тип личности по баллам
-   * @param {Object} scores - {E, I, S, N, T, F, J, P}
-   * @returns {string} MBTI тип (напр. INTJ)
    */
   determineType(scores) {
     const pairs = [['E', 'I'], ['S', 'N'], ['T', 'F'], ['J', 'P']];
-    
     return pairs
       .map(([first, second]) => scores[first] >= scores[second] ? first : second)
       .join('');
   },
   
   /**
-   * Рекомендовать IT-роль по типу MBTI
-   * @param {string} personalityType - 4-буквенный тип MBTI
-   * @param {Array} roles - массив ролей из questions.json
-   * @returns {string} название роли
+   * 16 типов MBTI с описаниями
    */
-  getRecommendedRole(personalityType, roles) {
-    for (const role of roles) {
+  typeDescriptions: {
+    'ISTJ': 'Практичный и ответственный. Ценит традиции и порядок. Надёжен в деталях.',
+    'ISFJ': 'Заботливый и внимательный. Помнит мелочи о людях. Ценит гармонию.',
+    'INFJ': 'Идеалист и визионер. Глубоко понимает людей. Стремится к смыслу.',
+    'INTJ': 'Стратег и аналитик. Независимый мыслитель. Видит систему целиком.',
+    'ISTP': 'Практик и экспериментатор. Любит разбираться как всё работает. Гибкий.',
+    'ISFP': 'Художник и эстет. Ценит красоту и свободу. Действует здесь и сейчас.',
+    'INFP': 'Мечтатель и идеалист. Ищет смысл во всём. Творческий и эмпатичный.',
+    'INTP': 'Логик и философ. Любит абстрактные идеи. Аналитический ум.',
+    'ESTP': 'Энергичный и практичный. Любит действие и риск. Быстро реагирует.',
+    'ESFP': 'Душа компании. Любит жизнь и людей. Спонтанный и весёлый.',
+    'ENFP': 'Вдохновитель и энтузиаст. Видит возможности повсюду. Креативный.',
+    'ENTP': 'Изобретатель и дебатёр. Любит интеллектуальные вызовы. Новатор.',
+    'ESTJ': 'Организатор и администратор. Ценит порядок и правила. Решительный.',
+    'ESFJ': 'Заботливый и общительный. Помогает другим. Ценит традиции.',
+    'ENFJ': 'Лидер и наставник. Вдохновляет людей. Харизматичный.',
+    'ENTJ': 'Командир и стратег. Прирождённый лидер. Целеустремлённый.'
+  },
+  
+  /**
+   * Профессии и привязка к MBTI типам (из Django)
+   */
+  roles: [
+    {
+      name: 'Тестировщик',
+      description: 'Вы внимательны к деталям и системны — хорошая основа для тестировщика.',
+      mbti_types: ['ISFJ', 'ISTJ', 'ESTJ'],
+      links: [
+        { text: '🎓 Бесплатный курс — Тестирование', url: 'https://stepik.org/course/124505/promo' },
+        { text: '⭐ Расширенный курс — Тестирование', url: 'https://stepik.org/course/128445/promo' }
+      ]
+    },
+    {
+      name: 'Аналитик',
+      description: 'Вы любите анализ и стратегию — подходите для аналитика.',
+      mbti_types: ['INTJ', 'INTP', 'ENTJ'],
+      links: [
+        { text: '🎓 Курс — Анализ данных', url: 'https://stepik.org/course/128445/promo' }
+      ]
+    },
+    {
+      name: 'Разработчик',
+      description: 'Вы творческий и инициативный — отлично для разработчика.',
+      mbti_types: ['ENFP', 'ENTP', 'INFP'],
+      links: [
+        { text: '🎓 Курс — Основы программирования', url: 'https://stepik.org/course/215117/promo' }
+      ]
+    }
+  ],
+  
+  /**
+   * Рекомендовать IT-роль по типу MBTI
+   */
+  getRecommendedRole(personalityType) {
+    for (const role of this.roles) {
       if (role.mbti_types.includes(personalityType)) {
-        return role;
+        return { ...role, isUnique: false };
       }
     }
     return {
       name: 'Уникальный тип личности',
-      description: 'Твой тип MBTI редко встречается в IT. Это даёт тебе уникальные преимущества!',
-      mbti_types: []
+      description: 'Исследуйте свои сильные стороны в разных профессиях. Ваш тип редок в IT — это даёт уникальные преимущества!',
+      mbti_types: [],
+      links: [],
+      isUnique: true
     };
   }
 };

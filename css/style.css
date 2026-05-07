@@ -5,6 +5,9 @@
   --text: #333;
   --text-light: #666;
   --white: #fff;
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
   --shadow: 0 4px 12px rgba(0,0,0,0.1);
   --radius: 12px;
 }
@@ -34,7 +37,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 /* ✅ Контейнер */
@@ -45,6 +48,10 @@ body {
 }
 
 /* ✅ Начальный экран */
+#start-screen {
+  justify-content: center;
+}
+
 #start-screen h1 {
   font-size: 2.5rem;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -93,6 +100,7 @@ body {
   transition: all 0.2s;
   min-height: 48px;
   min-width: 48px;
+  margin: 6px;
 }
 
 .btn:active {
@@ -123,6 +131,12 @@ body {
   box-shadow: var(--shadow);
   font-size: 0.9rem;
   padding: 12px 24px;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: var(--white);
+  box-shadow: var(--shadow);
 }
 
 /* ✅ Прогресс */
@@ -217,7 +231,7 @@ body {
 
 .mbti-type {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  padding: 20px;
+  padding: 24px;
   border-radius: var(--radius);
   margin-bottom: 24px;
 }
@@ -228,38 +242,29 @@ body {
   color: var(--white);
 }
 
-.recommended-role {
-  background: var(--white);
-  padding: 24px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  margin-bottom: 24px;
+.mbti-desc {
+  color: rgba(255,255,255,0.9);
+  margin-top: 8px;
+  font-size: 0.95rem;
 }
 
-.role-icon {
-  font-size: 2rem;
-  display: block;
-  margin-bottom: 8px;
-}
-
-#role-name {
-  font-size: 1.5rem;
-  margin-bottom: 8px;
-  color: var(--primary);
-}
-
-#role-description {
-  color: var(--text-light);
-  line-height: 1.6;
-}
-
-/* ✅ Бары для шкал */
-.score-bars {
+/* ✅ Баллы по шкалам */
+.scores-card {
   background: var(--white);
   padding: 20px;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   margin-bottom: 24px;
+}
+
+.scores-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.score-bars {
+  text-align: left;
 }
 
 .score-bar-item {
@@ -269,8 +274,14 @@ body {
 .score-bar-label {
   display: flex;
   justify-content: space-between;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.score-bar-label .dominant {
+  color: var(--primary);
+  font-weight: 700;
 }
 
 .score-bar {
@@ -286,43 +297,185 @@ body {
   transition: width 0.5s ease;
 }
 
-.result-actions {
+/* ✅ Рекомендуемая профессия */
+.role-card {
+  background: var(--white);
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  border-left: 4px solid var(--success);
+}
+
+.role-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.role-card h2 {
+  font-size: 1.5rem;
+  color: var(--success);
+  margin-bottom: 8px;
+}
+
+.role-card p {
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.role-links {
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
+}
+
+.role-link {
+  display: block;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.role-link:hover {
+  background: #e9ecef;
 }
 
 /* ✅ История */
-.history-section {
-  margin-top: 40px;
-  text-align: left;
-}
-
-.history-section h2 {
-  font-size: 1.25rem;
-  margin-bottom: 16px;
-  text-align: center;
-}
-
 .history-item {
   background: var(--white);
   padding: 16px;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   margin-bottom: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.history-item:active {
+  transform: scale(0.98);
 }
 
 .history-item .mbti {
   font-weight: 700;
   color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.history-item .role {
+  font-size: 0.9rem;
+  color: var(--text-light);
 }
 
 .history-item .date {
   font-size: 0.85rem;
   color: var(--text-light);
+  margin-top: 4px;
+}
+
+.history-item .scores-preview {
+  font-size: 0.8rem;
+  color: var(--primary);
+  margin-top: 4px;
+}
+
+/* ✅ Сетка типов MBTI */
+.types-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 24px 0;
+}
+
+.type-btn {
+  padding: 12px 8px;
+  background: var(--white);
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  min-height: 44px;
+}
+
+.type-btn:hover,
+.type-btn:active {
+  border-color: var(--primary);
+  background: #f0f4ff;
+}
+
+.type-btn.selected {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* ✅ Детальное описание типа */
+.type-detail {
+  background: var(--white);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin: 16px 0;
+  text-align: left;
+}
+
+.type-detail h2 {
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.type-detail p {
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* ✅ Детальный просмотр результата */
+.detail-card {
+  background: var(--white);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.detail-card h3 {
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.detail-scores {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.detail-score-row:last-child {
+  border-bottom: none;
+}
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
 }
 
 /* ✅ Адаптивность */
@@ -341,5 +494,15 @@ body {
   
   .mbti-text {
     font-size: 2rem;
+  }
+  
+  .types-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  
+  .type-btn {
+    font-size: 0.8rem;
+    padding: 10px 4px;
   }
 }

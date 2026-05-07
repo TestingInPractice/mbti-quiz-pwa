@@ -34,17 +34,13 @@
         </div>
         <div class="feature">
           <span class="feature-icon">💼</span>
-          <span class="feature-text">3 IT-роли</span>
+          <span class="feature-text">4 IT-роли</span>
         </div>
       </div>
 
       <button id="start-btn" class="btn btn-primary">Начать тест</button>
-
-      <div id="history-section" class="history-section" style="display: none;">
-        <h2>📊 История прохождений</h2>
-        <div id="history-list"></div>
-        <button id="clear-history" class="btn btn-secondary">Очистить историю</button>
-      </div>
+      <button id="history-btn" class="btn btn-secondary">📊 История</button>
+      <button id="types-btn" class="btn btn-secondary">🧩 Типы MBTI</button>
     </div>
   </div>
 
@@ -84,7 +80,7 @@
 
       <div class="navigation">
         <button id="prev-btn" class="btn btn-nav" disabled>← Назад</button>
-        <button id="finish-btn" class="btn btn-finish" style="display: none;">Завершить тест ✓</button>
+        <button id="finish-btn" class="btn btn-finish" style="display: none;">Завершить ✓</button>
       </div>
     </div>
   </div>
@@ -100,15 +96,22 @@
 
         <div class="mbti-type">
           <span id="mbti-type" class="mbti-text"></span>
+          <p id="mbti-description" class="mbti-desc"></p>
         </div>
 
-        <div class="recommended-role">
+        <!-- Баллы по шкалам -->
+        <div class="scores-card">
+          <h3>📊 Баллы по шкалам</h3>
+          <div id="score-bars" class="score-bars"></div>
+        </div>
+
+        <!-- Рекомендуемая профессия -->
+        <div id="role-card" class="role-card">
           <span class="role-icon">💼</span>
           <h2 id="role-name"></h2>
           <p id="role-description"></p>
+          <div id="role-links" class="role-links"></div>
         </div>
-
-        <div id="score-bars" class="score-bars"></div>
 
         <div class="result-actions">
           <button id="retake-btn" class="btn btn-primary">Пройти снова</button>
@@ -118,12 +121,41 @@
     </div>
   </div>
 
-  <script src="js/questions.js"></script>
+  <!-- ✅ ЭКРАН ИСТОРИИ -->
+  <div id="history-screen" class="screen">
+    <div class="container">
+      <h1>📊 История прохождений</h1>
+      <div id="history-list"></div>
+      <button id="clear-history" class="btn btn-danger" style="display: none;">Очистить историю</button>
+      <button id="history-back" class="btn btn-secondary">Назад</button>
+    </div>
+  </div>
+
+  <!-- ✅ ЭКРАН ТИПОВ MBTI -->
+  <div id="types-screen" class="screen">
+    <div class="container">
+      <h1>🧩 Все типы MBTI</h1>
+      <div id="types-grid" class="types-grid"></div>
+      <div id="type-detail" class="type-detail" style="display: none;">
+        <h2 id="type-detail-code"></h2>
+        <p id="type-detail-desc"></p>
+      </div>
+      <button id="types-back" class="btn btn-secondary">Назад</button>
+    </div>
+  </div>
+
+  <!-- ✅ ДЕТАЛЬНЫЙ ПРОСМОТР РЕЗУЛЬТАТА -->
+  <div id="detail-screen" class="screen">
+    <div class="container">
+      <div id="detail-content"></div>
+      <button id="detail-back" class="btn btn-secondary">Назад к истории</button>
+    </div>
+  </div>
+
   <script src="js/storage.js"></script>
   <script src="js/scoring.js"></script>
   <script src="js/app.js"></script>
   
-  <!-- ✅ Регистрация Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
