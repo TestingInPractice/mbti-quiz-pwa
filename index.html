@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#667eea" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="MBTI Quiz" />
+  <title>MBTI Quiz — Определи свою IT-роль</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ✅ НАЧАЛЬНЫЙ ЭКРАН -->
+  <div id="start-screen" class="screen active">
+    <div class="container">
+      <h1>🧠 MBTI Quiz</h1>
+      <p class="subtitle">Узнай свою IT-роль за 5 минут</p>
+      
+      <div class="features">
+        <div class="feature">
+          <span class="feature-icon">📝</span>
+          <span class="feature-text">60 вопросов</span>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">🎯</span>
+          <span class="feature-text">16 типов MBTI</span>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">💼</span>
+          <span class="feature-text">3 IT-роли</span>
+        </div>
+      </div>
+
+      <button id="start-btn" class="btn btn-primary">Начать тест</button>
+
+      <div id="history-section" class="history-section" style="display: none;">
+        <h2>📊 История прохождений</h2>
+        <div id="history-list"></div>
+        <button id="clear-history" class="btn btn-secondary">Очистить историю</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ ЭКРАН ВОПРОСА -->
+  <div id="question-screen" class="screen">
+    <div class="container">
+      <header>
+        <div class="progress-bar">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <div class="progress-text">
+          <span id="question-counter">1 / 60</span>
+        </div>
+      </header>
+
+      <div id="question-container" class="question-container">
+        <h2 id="question-text" class="question-text"></h2>
+        
+        <div id="answers-container" class="answers-container">
+          <button class="answer-btn" data-value="1">
+            <span class="answer-text">Полностью не согласен</span>
+          </button>
+          <button class="answer-btn" data-value="2">
+            <span class="answer-text">Скорее не согласен</span>
+          </button>
+          <button class="answer-btn" data-value="3">
+            <span class="answer-text">Не уверен</span>
+          </button>
+          <button class="answer-btn" data-value="4">
+            <span class="answer-text">Скорее согласен</span>
+          </button>
+          <button class="answer-btn" data-value="5">
+            <span class="answer-text">Полностью согласен</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="navigation">
+        <button id="prev-btn" class="btn btn-nav" disabled>← Назад</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ ЭКРАН РЕЗУЛЬТАТА -->
+  <div id="result-screen" class="screen">
+    <div class="container">
+      <div id="result-content" class="result-content">
+        <div class="result-header">
+          <span class="result-emoji">🎉</span>
+          <h1>Твой результат</h1>
+        </div>
+
+        <div class="mbti-type">
+          <span id="mbti-type" class="mbti-text"></span>
+        </div>
+
+        <div class="recommended-role">
+          <span class="role-icon">💼</span>
+          <h2 id="role-name"></h2>
+          <p id="role-description"></p>
+        </div>
+
+        <div id="score-bars" class="score-bars"></div>
+
+        <div class="result-actions">
+          <button id="retake-btn" class="btn btn-primary">Пройти снова</button>
+          <button id="home-btn" class="btn btn-secondary">На главную</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/questions.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/app.js"></script>
+  
+  <!-- ✅ Регистрация Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('SW registered'))
+          .catch(err => console.log('SW registration failed'));
+      });
+    }
+  </script>
+
+</body>
+</html>

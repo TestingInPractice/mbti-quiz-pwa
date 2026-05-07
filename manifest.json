@@ -1,0 +1,27 @@
+{
+  "name": "MBTI Quiz — Определи свою IT-роль",
+  "short_name": "MBTI Quiz",
+  "description": "Пройди тест из 60 вопросов и узнай какая IT-роль тебе подходит",
+  "start_url": "/mbti-quiz-pwa/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f8f9fa",
+  "theme_color": "#667eea",
+  "scope": "/mbti-quiz-pwa/",
+  "lang": "ru",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

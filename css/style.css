@@ -1,0 +1,337 @@
+:root {
+  --primary: #667eea;
+  --primary-dark: #764ba2;
+  --bg: #f8f9fa;
+  --text: #333;
+  --text-light: #666;
+  --white: #fff;
+  --shadow: 0 4px 12px rgba(0,0,0,0.1);
+  --radius: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ✅ Экраны */
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 20px 16px;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ✅ Контейнер */
+.container {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+/* ✅ Начальный экран */
+#start-screen h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-bottom: 32px;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.feature-icon {
+  font-size: 2rem;
+}
+
+.feature-text {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+/* ✅ Кнопки */
+.btn {
+  padding: 16px 32px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 48px;
+  min-width: 48px;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.btn-secondary {
+  background: var(--white);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-nav {
+  background: var(--white);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+/* ✅ Прогресс */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e9ecef;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+.progress-text {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 24px;
+}
+
+/* ✅ Вопрос */
+.question-container {
+  background: var(--white);
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+.question-text {
+  font-size: 1.25rem;
+  margin-bottom: 24px;
+  min-height: 60px;
+}
+
+/* ✅ Ответы */
+.answers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.answer-btn {
+  padding: 16px 20px;
+  background: var(--white);
+  border: 2px solid #e9ecef;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 56px;
+}
+
+.answer-btn:hover,
+.answer-btn:active {
+  border-color: var(--primary);
+  background: #f0f4ff;
+}
+
+.answer-btn.selected {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--white);
+}
+
+.answer-text {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ✅ Навигация */
+.navigation {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 16px;
+}
+
+/* ✅ Результат */
+.result-header {
+  margin-bottom: 24px;
+}
+
+.result-emoji {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.mbti-type {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  padding: 20px;
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+}
+
+.mbti-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.recommended-role {
+  background: var(--white);
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+
+.role-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+#role-name {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  color: var(--primary);
+}
+
+#role-description {
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* ✅ Бары для шкал */
+.score-bars {
+  background: var(--white);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+
+.score-bar-item {
+  margin-bottom: 16px;
+}
+
+.score-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.score-bar {
+  height: 10px;
+  background: #e9ecef;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.score-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  transition: width 0.5s ease;
+}
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ✅ История */
+.history-section {
+  margin-top: 40px;
+  text-align: left;
+}
+
+.history-section h2 {
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.history-item {
+  background: var(--white);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-item .mbti {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.history-item .date {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+/* ✅ Адаптивность */
+@media (max-width: 480px) {
+  #start-screen h1 {
+    font-size: 2rem;
+  }
+  
+  .features {
+    gap: 16px;
+  }
+  
+  .question-text {
+    font-size: 1.1rem;
+  }
+  
+  .mbti-text {
+    font-size: 2rem;
+  }
+}
