@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MBTI Quiz PWA — Определи свою IT-роль
 
 > Progressive Web Application для определения типа личности MBTI и рекомендации IT-роли. Работает полностью офлайн после установки.
@@ -114,3 +115,6 @@ cp data_export.json data/questions.json
 <p align="center">
   Сделано с ❤️ для определения IT-роли
 </p>
+=======
+# mbti-quiz-pwa
+>>>>>>> origin/main
