@@ -16,12 +16,13 @@ const App = {
     result: document.getElementById('result-screen')
   },
   
-  elements: {
+    elements: {
     startBtn: document.getElementById('start-btn'),
     questionText: document.getElementById('question-text'),
     questionCounter: document.getElementById('question-counter'),
     progressFill: document.getElementById('progress-fill'),
     prevBtn: document.getElementById('prev-btn'),
+    finishBtn: document.getElementById('finish-btn'),
     answerBtns: document.querySelectorAll('.answer-btn'),
     mbtiType: document.getElementById('mbti-type'),
     roleName: document.getElementById('role-name'),
@@ -85,6 +86,16 @@ const App = {
     // Назад
     this.elements.prevBtn.addEventListener('click', () => this.prevQuestion());
     
+    // Завершить тест
+    this.elements.finishBtn.addEventListener('click', () => {
+      const answered = Object.keys(this.answers).length;
+      if (answered === 0) {
+        alert('Ответь хотя бы на один вопрос');
+        return;
+      }
+      this.showResult();
+    });
+    
     // Пройти снова
     this.elements.retakeBtn.addEventListener('click', () => this.startQuiz());
     
@@ -124,6 +135,10 @@ const App = {
     
     // Кнопка "Назад"
     this.elements.prevBtn.disabled = this.currentQuestionIndex === 0;
+    
+    // Кнопка "Завершить тест" — показываем если есть хотя бы 1 ответ
+    const answered = Object.keys(this.answers).length;
+    this.elements.finishBtn.style.display = answered > 0 ? 'block' : 'none';
     
     // Выделить текущий ответ если есть
     const qid = question.id;

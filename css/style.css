@@ -117,6 +117,14 @@ body {
   box-shadow: var(--shadow);
 }
 
+.btn-finish {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: var(--white);
+  box-shadow: var(--shadow);
+  font-size: 0.9rem;
+  padding: 12px 24px;
+}
+
 /* ✅ Прогресс */
 .progress-bar {
   width: 100%;
@@ -192,7 +200,7 @@ body {
 /* ✅ Навигация */
 .navigation {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-top: 16px;
 }
 
